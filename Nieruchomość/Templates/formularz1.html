@@ -1,0 +1,47 @@
+{% extends 'baza.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'polls/wyszukaj.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<div id="przyciemnienie" class="przyciemnienie"></div>
+<div id="loading" class="loading"><p style='padding-bottom: 10px'>Wyszukuję,<br>to może potrwać kilkadziesiąt sekund</p><img id='ladowanie' src="/static/polls/img/Quarter-Circle-Loading-Image-1.gif" alt="" /></div>
+
+<form action='/result' method = 'POST'> {%csrf_token%}
+	{{formularz}}
+
+	<input id='submit' type="submit" value="Szukaj" /><div style='clear: both;'>
+</form>
+
+<h2>Wyszukiwarka nieruchomości</h2>
+
+<div id='atrapa'></div>
+<img id='imglowny' src='/static/polls/img/Domek.png'>
+
+<div class="stopka">Wyszukiwarka korzysta z danych z Morizon.pl, Gratka.pl oraz Gumtree.pl &copy; Paweł Krupski 2021 Wszelkie prawa zastrzeżone</div><div class="stopka2">Kontakt: skrzypekpoddachem@op.pl </div><div style='clear:both;'></div>
+
+<p id='var'></p>
+<script type='text/javascript'>
+	var form = '{{formularz}}';
+</script>
+
+<!-- {{formularz.transakcja.initial}}
+{{formularz.transakcja.data}}
+{{request.GET.transakcja}} -->
+<!-- {{rodzaj_zabudowy}}
+{{typ_domu}}
+{{komercyjne}}
+{{typ_dzialki}} -->
+<!-- {% load N_dodatki %}
+{{formularz.fields|dodaj_pole}}
+{{formularz.fields}} -->
+
+<script src="{% static 'polls/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'polls/wyszukaj.js' %}"></script>
+
+<!-- <button id=klik type=button>Klik</button> -->
+
+{% endblock %}

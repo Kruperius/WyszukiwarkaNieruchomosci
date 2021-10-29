@@ -1,0 +1,13 @@
+/* Background pattern from Toptal Subtle Patterns */
+
+body {
+	background-image: url('/static/polls/img/vintage-wallpaper.png');
+	font-family: 'Open Sans', sans-serif;
+	color: white;
+	letter-spacing: 3px;
+}
+
+h2 {
+	text-align: center;
+	letter-spacing: 5px;
+}

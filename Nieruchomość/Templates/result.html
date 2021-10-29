@@ -1,0 +1,77 @@
+{% extends 'baza.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'polls/result.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<br/><br/>
+<!-- <p>Wyniki</p> -->
+
+<div id=container>
+{% for nieruchomosc in dane %}
+
+    <a href='{{nieruchomosc.7}}' target='_blank'>
+    <div class='nieruchomosc'>
+        {% if nieruchomosc|length > 1 %}
+    	<div class='img'><img width='288' height='224' src='{{nieruchomosc.6}}'/></div>
+        {% else %}
+        <div class='img'><img width='288' height='224' src="{% static 'polls/img/eko-dom.jpg' %}"/></div>
+        {% endif %}
+	    <div class='reszta'>
+	    	<div class='tytul'>
+		    	<div class='lokalizacja'><h3>{{nieruchomosc.0}}</h3></div>
+		    	<div class='podtytul'>{{nieruchomosc.1}}</div>
+		    </div>	
+		    <div class='ceny'>
+		    	<div class='cena'><h3>{{nieruchomosc.4}}</h3></div><div style='clear:both;'></div>
+		    	<div class='cena_za_m'>{{nieruchomosc.5}}</div><div style='clear:both;'></div>
+		    </div><div style='clear:both;'></div>
+
+	    	<div class='dane'>{{nieruchomosc.2}}</div>
+	    	<div class='opis'>{{nieruchomosc.3}}</div>
+	  	</div><div style='clear:both;'></div>
+    
+    </div>
+    </a>
+{% endfor %}
+</div>
+
+<br>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if dane.has_previous %}
+            <a href="?page=1">&laquo; Pierwsza</a>
+            <a href="?page={{ dane.previous_page_number }}">poprzednia</a>
+        {% else %}
+            <a>&laquo; Pierwsza</a>
+            <a>porzednia</a>
+        {% endif %}
+        {% for num in dane.paginator.page_range %}
+  			{% if dane.number == num %}
+    		  <span><b>{{ num }}</b></span>
+  			{% elif num > dane.number|add:'-9' and num < dane.number|add:'9' %}
+    		  <a href="?page={{ num }}"> {{ num }}</a>
+  			{% endif %} 
+		{% endfor %} z {{ dane.paginator.num_pages }}
+
+        {% if dane.has_next %}
+            <a href="?page={{ dane.next_page_number }}">następna</a>
+            <a href="?page={{ dane.paginator.num_pages }}">Ostatnia &raquo;</a>
+		{% else %}
+			<a>następna</a>
+            <a>Ostatnia &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<!-- {{dane}} -->
+<!--         <span class="current">
+            Strona {{ dane.number }} z {{ dane.paginator.num_pages }}.
+        </span> -->
+
+{% endblock %}
+
